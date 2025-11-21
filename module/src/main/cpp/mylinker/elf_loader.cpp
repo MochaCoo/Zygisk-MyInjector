@@ -57,11 +57,11 @@ bool ElfLoader::LoadLibrary(const char* path) {
         return false;
     }
 
-    //if (!memory_manager_->ProtectSegments(reader_->GetProgramHeaders(),
-    //                                      reader_->GetProgramHeaderCount())) {
-    //    LOGE("Failed to protect segments");
-    //    return false;
-    //}
+    if (!memory_manager_->ProtectSegments(reader_->GetProgramHeaders(),
+                                          reader_->GetProgramHeaderCount())) {
+        LOGE("Failed to protect segments");
+        return false;
+    }
 
     //if (!relocator_->LinkImage(loaded_si_)) {
     //    LOGE("Failed to link image");
