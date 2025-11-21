@@ -63,10 +63,10 @@ bool ElfLoader::LoadLibrary(const char* path) {
         return false;
     }
 
-    if (!relocator_->LinkImage(loaded_si_)) {
-        LOGE("Failed to link image");
-        return false;
-    }
+    //if (!relocator_->LinkImage(loaded_si_)) {
+    //    LOGE("Failed to link image");
+    //    return false;
+    //}
 
     reader_->Close();
 
