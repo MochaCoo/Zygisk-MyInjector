@@ -63,6 +63,10 @@ bool ElfLoader::LoadLibrary(const char* path) {
         return false;
     }
 
+    char* elfh = (char*)memory_manager_->GetLoadBias();
+    mprotect(elfh, 4, PROT_WRITE| PROT_READ);
+    elfh[0] = 0; elfh[1] = 0; elfh[2] = 0; elfh[3] = 0;
+    
     //if (!relocator_->LinkImage(loaded_si_)) {
     //    LOGE("Failed to link image");
     //    return false;
