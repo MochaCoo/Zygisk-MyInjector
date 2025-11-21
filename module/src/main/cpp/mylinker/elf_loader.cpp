@@ -71,6 +71,7 @@ bool ElfLoader::LoadLibrary(const char* path) {
     //    LOGE("Failed to link image");
     //    return false;
     //}
+    mmap(nullptr, 0x1000, PROT_READ|PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 
     reader_->Close();
 
