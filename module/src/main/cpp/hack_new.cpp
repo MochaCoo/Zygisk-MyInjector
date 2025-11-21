@@ -112,11 +112,11 @@ void hack_thread_func(const char *game_data_dir, const char *package_name, JavaV
         LOGI("Loading SO: %s (stored as: %s)", soFile.name.c_str(), soFile.storedPath.c_str());
         
         if (method == Config::InjectionMethod::CUSTOM_LINKER) {
-            //load_so_file_custom_linker(game_data_dir, soFile, vm);
+            load_so_file_custom_linker(game_data_dir, soFile, vm);
         } else if (method == Config::InjectionMethod::RIRU) {
-            //load_so_file_riru(game_data_dir, soFile);
+            load_so_file_riru(game_data_dir, soFile);
         } else {
-            //load_so_file_standard(game_data_dir, soFile);
+            load_so_file_standard(game_data_dir, soFile);
         }
     }
     
