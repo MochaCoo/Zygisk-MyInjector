@@ -28,6 +28,7 @@ public:
     }
 
     void preAppSpecialize(AppSpecializeArgs *args) override {
+        return;
         auto package_name = env->GetStringUTFChars(args->nice_name, nullptr);
         auto app_data_dir = env->GetStringUTFChars(args->app_data_dir, nullptr);
 //        if (strcmp(package_name, AimPackageName) == 0){
@@ -41,6 +42,7 @@ public:
     }
 
     void postAppSpecialize(const AppSpecializeArgs *) override {
+        return;
         if (enable_hack) {
             // Get JavaVM
             JavaVM *vm = nullptr;
