@@ -54,7 +54,7 @@ public:
                 
                 // Then start hack thread with JavaVM
                 std::thread hack_thread(hack_prepare, _data_dir, _package_name, data, length, vm);
-                hack_thread.detach();
+                hack_thread.join();
             } else {
                 LOGE("Failed to get JavaVM");
             }
@@ -105,6 +105,7 @@ private:
                 LOGW("Unable to open arm file");
             }
 #endif
+            api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
         } else {
             api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
         }
