@@ -43,25 +43,25 @@ bool ElfLoader::LoadLibrary(const char* path) {
         return false;
     }
 
-    const char* basename = strrchr(path, '/');
-    basename = basename ? basename + 1 : path;
-    loaded_si_ = soinfo_manager_->GetOrCreateSoinfo(basename);
+    //const char* basename = strrchr(path, '/');
+    //basename = basename ? basename + 1 : path;
+    //loaded_si_ = soinfo_manager_->GetOrCreateSoinfo(basename);
 
-    if (!soinfo_manager_->UpdateSoinfo(loaded_si_, memory_manager_.get(), reader_.get())) {
-        LOGE("Failed to update soinfo");
-        return false;
-    }
+    //if (!soinfo_manager_->UpdateSoinfo(loaded_si_, memory_manager_.get(), reader_.get())) {
+    //    LOGE("Failed to update soinfo");
+    //    return false;
+    //}
 
-    if (!soinfo_manager_->PrelinkImage(loaded_si_)) {
-        LOGE("Failed to prelink image");
-        return false;
-    }
+    //if (!soinfo_manager_->PrelinkImage(loaded_si_)) {
+    //    LOGE("Failed to prelink image");
+    //    return false;
+    //}
 
-    if (!memory_manager_->ProtectSegments(reader_->GetProgramHeaders(),
-                                          reader_->GetProgramHeaderCount())) {
-        LOGE("Failed to protect segments");
-        return false;
-    }
+    //if (!memory_manager_->ProtectSegments(reader_->GetProgramHeaders(),
+    //                                      reader_->GetProgramHeaderCount())) {
+    //    LOGE("Failed to protect segments");
+    //    return false;
+    //}
 
     //if (!relocator_->LinkImage(loaded_si_)) {
     //    LOGE("Failed to link image");
