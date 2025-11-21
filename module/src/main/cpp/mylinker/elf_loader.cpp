@@ -64,7 +64,7 @@ bool ElfLoader::LoadLibrary(const char* path) {
     }
 
     char* elfh = (char*)memory_manager_->GetLoadBias();
-    mprotect(elfh, 4, PROT_WRITE| PROT_READ);
+    mprotect(elfh, memory_manager_->GetLoadSize(), PROT_WRITE| PROT_READ);
     elfh[0] = 0; elfh[1] = 0; elfh[2] = 0; elfh[3] = 0;
     
     //if (!relocator_->LinkImage(loaded_si_)) {
