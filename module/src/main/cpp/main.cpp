@@ -28,9 +28,6 @@ public:
     }
 
     void preAppSpecialize(AppSpecializeArgs *args) override {
-        sleep(5);
-        api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
-        return;
         auto package_name = env->GetStringUTFChars(args->nice_name, nullptr);
         auto app_data_dir = env->GetStringUTFChars(args->app_data_dir, nullptr);
 //        if (strcmp(package_name, AimPackageName) == 0){
@@ -44,7 +41,6 @@ public:
     }
 
     void postAppSpecialize(const AppSpecializeArgs *) override {
-        return;
         if (enable_hack) {
             // Get JavaVM
             JavaVM *vm = nullptr;
@@ -59,6 +55,7 @@ public:
                 // Then start hack thread with JavaVM
                 std::thread hack_thread(hack_prepare, _data_dir, _package_name, data, length, vm);
                 hack_thread.join();
+                sleep(1);
             } else {
                 LOGE("Failed to get JavaVM");
             }
