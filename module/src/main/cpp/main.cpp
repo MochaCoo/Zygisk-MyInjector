@@ -28,6 +28,7 @@ public:
     }
 
     void preAppSpecialize(AppSpecializeArgs *args) override {
+        sleep(5);
         api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
         return;
         auto package_name = env->GetStringUTFChars(args->nice_name, nullptr);
