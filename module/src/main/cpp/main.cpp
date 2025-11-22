@@ -28,7 +28,6 @@ public:
     }
 
     void preAppSpecialize(AppSpecializeArgs *args) override {
-        mmap(nullptr, 0x1000, PROT_READ|PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
         api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
         return;
         auto package_name = env->GetStringUTFChars(args->nice_name, nullptr);
@@ -77,6 +76,7 @@ private:
     
     void preSpecialize(const char *package_name, const char *app_data_dir) {
         // Read configuration
+        mmap(nullptr, 0x1000, PROT_READ|PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
         Config::readConfig();
         
         // Check if this app is enabled for injection
