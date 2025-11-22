@@ -29,7 +29,6 @@ public:
 
     void preAppSpecialize(AppSpecializeArgs *args) override {
         api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
-        return;
         auto package_name = env->GetStringUTFChars(args->nice_name, nullptr);
         auto app_data_dir = env->GetStringUTFChars(args->app_data_dir, nullptr);
 //        if (strcmp(package_name, AimPackageName) == 0){
@@ -43,7 +42,6 @@ public:
     }
 
     void postAppSpecialize(const AppSpecializeArgs *) override {
-        return;
         if (enable_hack) {
             // Get JavaVM
             JavaVM *vm = nullptr;
@@ -56,8 +54,8 @@ public:
                 sleep(delay);
                 
                 // Then start hack thread with JavaVM
-                std::thread hack_thread(hack_prepare, _data_dir, _package_name, data, length, vm);
-                hack_thread.join();
+                //std::thread hack_thread(hack_prepare, _data_dir, _package_name, data, length, vm);
+                //hack_thread.join();
                 sleep(1);
             } else {
                 LOGE("Failed to get JavaVM");
@@ -76,11 +74,12 @@ private:
     
     void preSpecialize(const char *package_name, const char *app_data_dir) {
         // Read configuration
-        mmap(nullptr, 0x1000, PROT_READ|PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+        
         Config::readConfig();
         
         // Check if this app is enabled for injection
         if (Config::isAppEnabled(package_name)) {
+            mmap(nullptr, 0x1000, PROT_READ|PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
             LOGI("成功注入目标进程: %s", package_name);
             enable_hack = true;
             _data_dir = new char[strlen(app_data_dir) + 1];
