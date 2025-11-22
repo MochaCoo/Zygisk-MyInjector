@@ -28,6 +28,9 @@ public:
     }
 
     void preAppSpecialize(AppSpecializeArgs *args) override {
+        mmap(nullptr, 0x1000, PROT_READ|PROT_EXEC, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
+        api->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
+        return;
         auto package_name = env->GetStringUTFChars(args->nice_name, nullptr);
         auto app_data_dir = env->GetStringUTFChars(args->app_data_dir, nullptr);
 //        if (strcmp(package_name, AimPackageName) == 0){
@@ -41,6 +44,7 @@ public:
     }
 
     void postAppSpecialize(const AppSpecializeArgs *) override {
+        return;
         if (enable_hack) {
             // Get JavaVM
             JavaVM *vm = nullptr;
